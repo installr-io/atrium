@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+    srv:
+        hostname: atrium
+        image: ${docker.registry}/installr-io/atrium:${docker.image-version}
+        deploy:
+            mode: replicated
+            replicas: ${replicas}
+            resources:
+                limits:
+                    memory: ${memory}
+            restart_policy:
+                condition: any
+                delay: 2s
+                max_attempts: ${max_restart_attempts}
+                window: 30m
+        ports:
+            - ${port}:9317
+        environment:
+            - JVM_OPTIONS=${jvm_options}
+        volumes:
+            - data:/home/uci/.atrium
+
+volumes:
+    data:
+        driver: local

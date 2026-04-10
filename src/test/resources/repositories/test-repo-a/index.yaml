@@ -1,0 +1,18 @@
+- packageInfo:
+    packageId:
+      name: "test-package-a"
+      version: "0.1.0"
+    description: "A test package"
+    contents:
+      - path: "docker/test-stack-a.yaml"
+        hash: "494a5c75893174f3e405a48ee88155537b1b275f"
+  uri: /repositories/repo-a/packages/test-package-a-0.1.0.ipf
+- packageInfo:
+    packageId:
+      name: "test-package-b"
+      version: "2.9.7-SNAPSHOT"
+    description: "Another test package"
+    contents:
+      - path: "docker/test-stack-b.yaml"
+        hash: "266ab27e698146eaa1e449bc59bb18b55c1ffe93"
+  uri: /repositories/repo-a/packages/test-package-b-2.9.7-SNAPSHOT.ipf

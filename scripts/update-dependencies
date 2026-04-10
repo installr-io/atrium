@@ -1,0 +1,37 @@
+#!/bin/bash
+
+printUsage() {
+    echo
+    echo "$0: <type>"
+    echo ""
+    echo "TYPE"
+    echo "    patch: update patchlevel only"
+    echo "    minor: update to next minor version"
+    echo "    major: update to next major version"
+    echo
+}
+
+set -e
+
+if [[ ${#@} != 1 ]]; then
+    printUsage
+    exit 1
+fi
+TYPE=$1
+OPTS=
+
+if [[ ${TYPE} == "patch" ]]; then
+    OPTS="-DallowMajorUpdates=false -DallowMinorUpdates=false -DallowIncrementalUpdates=true"
+elif [[ ${TYPE} == "minor" ]]; then
+    OPTS="-DallowMajorUpdates=false -DallowMinorUpdates=true -DallowIncrementalUpdates=true"
+elif [[ ${TYPE} == "major" ]]; then
+    OPTS="-DallowMajorUpdates=true -DallowMinorUpdates=true -DallowIncrementalUpdates=true"
+else
+    echo "Error: unknown type: ${TYPE}"
+    exit 1
+fi
+
+mvn versions:update-properties \
+    -DgenerateBackupPoms=false \
+    -DallowSnapshots=false \
+    ${OPTS}

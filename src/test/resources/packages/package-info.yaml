@@ -1,0 +1,9 @@
+---
+packageId:
+  name: "test-package-a"
+  version: "0.1.0"
+contents:
+- path: "docker/test-stack.yaml"
+  mediaType: "application/vnd.io.installr.docker-swarm"
+  encoding: "UTF-8"
+  hash: "494a5c75893174f3e405a48ee88155537b1b275f"

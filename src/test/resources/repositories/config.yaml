@@ -1,0 +1,4 @@
+atrium:
+    repo-dir: /tmp/.atrium/repositories
+    repositories:
+        - id: "test-repository-a"

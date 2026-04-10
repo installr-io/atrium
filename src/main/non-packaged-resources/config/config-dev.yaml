@@ -1,0 +1,11 @@
+##
+## Development configuration
+##
+
+## Base configuration for atrium
+atrium:
+    ## base uri where atrium is hosted
+    base-uri: http://localhost:9317
+    ## list of repositories
+    repositories:
+        - id: demo

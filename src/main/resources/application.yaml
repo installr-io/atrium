@@ -1,0 +1,100 @@
+quarkus:
+    http:
+        port: 9317
+        test-port: 9371
+        access-log:
+            enabled: true
+        limits:
+            max-form-attribute-size: 512M
+        proxy:
+            proxy-address-forwarding: true
+
+    log:
+        level: WARN
+        console:
+            stderr: true
+            format: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %s%e%n'
+
+        handler:
+            console:
+                "access-log-handler":
+                    format: "%s%n"
+                    stderr: false
+        category:
+            "io.quarkus.http.access-log":
+                handlers: access-log-handler
+                use-parent-handlers: false
+                level: INFO
+            "io.installr":
+                level: TRACE
+                min-level: TRACE
+    banner:
+        enabled: false
+
+    devservices:
+        enabled: false
+
+    container-image:
+        registry: ghcr.io
+        group: installr-io
+
+    index-dependency:
+        lib-pkg:
+            group-id: "io.installr"
+            artifact-id: "installr-lib-pkg"
+        lib-registry:
+            group-id: "io.installr"
+            artifact-id: "installr-lib-registry"
+
+atrium:
+    config:
+        location: ${HOME}/.atrium
+
+smallrye:
+    config:
+        locations: ${atrium.config.location}/config.yaml
+
+"%dev":
+    smallrye:
+        config:
+            locations: ${atrium.config.location}/config-dev.yaml
+
+"%test":
+    atrium:
+        config:
+            location: ./target/test-classes/repositories
+
+"%prod":
+    ## configure basic auth for production
+    quarkus:
+        http:
+            auth:
+                basic: true
+                policy:
+                    ## default build-in policy for /repositories
+                    policy-repositories-read:
+                        roles-allowed:
+                            - repositories-read
+                permission:
+                    ## default build-in permission for /repositories
+                    permission-repositories-read:
+                        paths: 
+                            - /repositories
+                        methods: GET
+                        policy: policy-repositories-read
+                    ## per default do not allow any access
+                    permission-deny-all:
+                        paths: 
+                            - /*
+                        methods: GET,PUT,POST,DELETE,HEAD,OPTIONS,PATCH
+                        policy: deny
+
+        security:
+            users:
+                file:
+                    enabled: true
+                    ## fixme
+                    users: /home/uci/.atrium/users.properties
+                    roles: /home/uci/.atrium/roles.properties
+                    realm-name: Atrium
+                    plain-text: false

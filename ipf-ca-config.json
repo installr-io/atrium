@@ -1,0 +1,8 @@
+[
+    {
+        "pathPattern": "docker/**",
+        "mediaType": "application/vnd.io.installr.docker-stack",
+        "encoding": "UTF-8",
+        "order": 1
+    }
+]

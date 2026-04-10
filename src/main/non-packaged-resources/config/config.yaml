@@ -1,0 +1,63 @@
+##
+## Example configuration
+##
+
+# ## Base configuration for atrium
+# atrium:
+#     ## base uri where atrium is hosted
+#     base-uri: https://atrium.your-domain.org
+#     ## list of repositories
+#     repositories:
+#         - id: snapshots
+#         - id: releases
+
+## Atrium uses basic auth for authentication. By default nothing is accessible. Here you can configure
+## your policies. Per repository, if you like.
+
+## Users are stored in users.properties, user/role mappings in roles.properties.
+# quarkus:
+#     http:
+#         auth:
+#             policy:
+#                 ## this is the read policy for the 'releases' repository
+#                 policy-releases-read:
+#                     roles-allowed:
+#                         - releases-read
+#                 ## this is the write policy for the 'releases' repository
+#                 policy-releases-write:
+#                     roles-allowed:
+#                         - releases-write
+#                 ## this is the read policy for the 'snapshots' repository
+#                 policy-snapshots-read:
+#                     roles-allowed:
+#                         - snapshots-read
+#                 ## this is the write policy for the 'snapshots' repository
+#                 policy-snapshots-write:
+#                     roles-allowed:
+#                         - snapshots-write
+
+#             permission:
+#                 ## GET requests for resources under /repositories/releases/ use the 'policy-releases-read' policy
+#                 permission-releases-read:
+#                     paths: 
+#                         - /repositories/releases/*
+#                     methods: GET
+#                     policy: policy-releases-read
+#                 ## PUT/DELETE requests for resources under /repositories/releases/ use the 'policy-releases-write' policy
+#                 permission-releases-write:
+#                     paths: 
+#                         - /repositories/releases/*
+#                     methods: PUT,DELETE
+#                     policy: policy-releases-write
+#                 ## GET requests for resources under /repositories/snapshots/ use the 'policy-snapshots-read' policy
+#                 permission-snapshots-read:
+#                     paths: 
+#                         - /repositories/snapshots/*
+#                     methods: GET
+#                     policy: policy-snapshots-read
+#                 ## PUT/DELETE requests for resources under /repositories/snapshots/ use the 'policy-snapshots-write' policy
+#                 permission-snapshots-write:
+#                     paths: 
+#                         - /repositories/snapshots/*
+#                     methods: PUT,DELETE
+#                     policy: policy-snapshots-write
