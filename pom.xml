@@ -41,6 +41,14 @@
     </scm>
 
     <properties>
+        <!-- packaging -->
+        <non-packaged-resources.source.directory>
+            ${project.basedir}/src/main/non-packaged-resources
+        </non-packaged-resources.source.directory>
+        <non-packaged-resources.target.directory>
+            ${project.build.directory}/non-packaged-resources
+        </non-packaged-resources.target.directory>
+
         <!-- docker properties -->
         <docker.registry>ghcr.io</docker.registry>
         <docker.image-version>${project.version}-${build.revision}</docker.image-version>
@@ -156,6 +164,54 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>process-ipf-resources</id>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/ipf</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.directory}/ipf-sources</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-non-packaged-resources</id>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${non-packaged-resources.source.directory}</directory>
+                                    <filtering>true</filtering>
+                                    <excludes>
+                                        <exclude>config/**</exclude>
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>${non-packaged-resources.source.directory}</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>config/**</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${non-packaged-resources.target.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <extensions>true</extensions>
@@ -185,28 +241,6 @@
                         <maven.home>${maven.home}</maven.home>
                     </systemPropertyVariables>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>process-ipf-resources</id>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/src/main/ipf</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                            <outputDirectory>${project.build.directory}/ipf-sources</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>io.installr</groupId>
