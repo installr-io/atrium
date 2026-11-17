@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>atrium</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
 
     <description>atrium - A package registry for IPF packages</description>
     <url>https://installr.io</url>
