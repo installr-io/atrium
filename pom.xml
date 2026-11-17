@@ -25,7 +25,7 @@
     <parent>
         <groupId>io.installr</groupId>
         <artifactId>installr-project</artifactId>
-        <version>0.1.0</version>
+        <version>0.3.0</version>
     </parent>
 
     <artifactId>atrium</artifactId>
@@ -46,8 +46,8 @@
         <docker.image-version>${project.version}-${build.revision}</docker.image-version>
 
         <!-- dependency versions -->
-        <installr-lib-pkg.version>0.1.0</installr-lib-pkg.version>
-        <installr-lib-registry.version>0.1.0</installr-lib-registry.version>
+        <installr-lib-pkg.version>0.3.0</installr-lib-pkg.version>
+        <installr-lib-registry.version>0.3.0</installr-lib-registry.version>
 
         <!-- plugin versions -->
         <ipf-maven-plugin.version>0.1.0</ipf-maven-plugin.version>
@@ -110,7 +110,7 @@
         <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
+            <artifactId>quarkus-junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
